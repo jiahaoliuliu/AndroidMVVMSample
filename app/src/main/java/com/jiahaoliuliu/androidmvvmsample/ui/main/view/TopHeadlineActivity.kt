@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.topheadline
+package com.jiahaoliuliu.androidmvvmsample.ui.main.view
 
 import android.os.Bundle
 import android.view.View
@@ -9,9 +9,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
+import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
+import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerApplicationComponent
+import com.jiahaoliuliu.androidmvvmsample.di.module.ActivityModule
 import com.jiahaoliuliu.androidmvvmsample.ui.base.UiState
-import kotlinx.coroutines.flow.collect
+import com.jiahaoliuliu.androidmvvmsample.ui.main.adapter.TopHeadlineAdapter
+import com.jiahaoliuliu.androidmvvmsample.ui.main.viewmodel.TopHeadlineViewModel
 import kotlinx.coroutines.launch
 import me.amitshekhar.mvvm.databinding.ActivityTopHeadlineBinding
 import javax.inject.Inject
@@ -77,6 +82,8 @@ class TopHeadlineActivity: AppCompatActivity() {
     }
 
     private fun injectDependencies() {
-        // TODO
+        DaggerActivityComponent.builder()
+            .applicationComponent((application as AndroidMVVMSampleApplication).applicationComponent)
+            .activityModule(ActivityModule(this)).build().inject(this)
     }
 }

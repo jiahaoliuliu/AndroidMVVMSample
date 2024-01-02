@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.topheadline
+package com.jiahaoliuliu.androidmvvmsample.ui.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

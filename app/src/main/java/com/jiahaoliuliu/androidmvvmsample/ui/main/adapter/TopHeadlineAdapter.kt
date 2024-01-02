@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.topheadline
+package com.jiahaoliuliu.androidmvvmsample.ui.main.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
