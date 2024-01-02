@@ -13,7 +13,8 @@ class TopHeadlineAdapter(
     private val articlesList: ArrayList<Article>
 ) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
 
-    class DataViewHolder(private val binding: TopHeadlineItemLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
+    class DataViewHolder(private val binding: TopHeadlineItemLayoutBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
             binding.textViewTitle.text = article.title
             binding.textViewDescription.text = article.description
@@ -29,19 +30,22 @@ class TopHeadlineAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = DataViewHolder(
-        TopHeadlineItemLayoutBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        DataViewHolder(
+            TopHeadlineItemLayoutBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-    )
 
     override fun getItemCount() = articlesList.size
 
-    override fun onBindViewHolder(holder: DataViewHolder, position: Int) = holder.bind(articlesList[position])
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
+        holder.bind(articlesList[position])
 
     fun addData(list: List<Article>) {
         articlesList.addAll(list)
+        this.notifyDataSetChanged()
     }
 }

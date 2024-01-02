@@ -60,6 +60,7 @@ class TopHeadlineActivity: AppCompatActivity() {
                         is UiState.Success -> {
                             binding.progressBar.visibility = View.GONE
                             renderList(it.data)
+                            binding.recyclerView.visibility = View.VISIBLE
                         }
                         is UiState.Loading -> {
                             binding.progressBar.visibility = View.VISIBLE
@@ -78,7 +79,6 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     private fun renderList(articlesList: List<Article>) {
         adapter.addData(articlesList)
-        adapter.notifyDataSetChanged()
     }
 
     private fun injectDependencies() {
