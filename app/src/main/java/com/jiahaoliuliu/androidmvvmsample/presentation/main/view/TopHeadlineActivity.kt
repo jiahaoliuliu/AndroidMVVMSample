@@ -1,54 +1,79 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
+import com.jiahaoliuliu.androidmvvmsample.data.model.Source
 import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
 import com.jiahaoliuliu.androidmvvmsample.di.module.ActivityModule
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
-import com.jiahaoliuliu.androidmvvmsample.presentation.main.adapter.TopHeadlineAdapter
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
+import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
 import kotlinx.coroutines.launch
-import me.amitshekhar.mvvm.databinding.ActivityTopHeadlineBinding
 import javax.inject.Inject
 
 class TopHeadlineActivity: AppCompatActivity() {
 
     @Inject
     lateinit var topHeadlineViewModel: TopHeadlineViewModel
-
-    @Inject
-    lateinit var adapter: TopHeadlineAdapter
-
-    private lateinit var binding: ActivityTopHeadlineBinding
+    private val _topHeadlinesList = mutableStateListOf<Article>()
+    private val topHeadlinesList: List<Article> = _topHeadlinesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
         super.onCreate(savedInstanceState)
-        binding = ActivityTopHeadlineBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setUpUi()
+        setContent {
+            AndroidMVVMSampleTheme {
+                Surface {
+                    TopHeadlinesList(articlesList = topHeadlinesList)
+                }
+            }
+        }
         setUpObserver()
     }
 
-    private fun setUpUi() {
-        val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                recyclerView.context,
-                (recyclerView.layoutManager as LinearLayoutManager).orientation
-            )
+    @Composable
+    fun TopHeadlinesList(articlesList: List<Article>) {
+        LazyColumn {
+            items(articlesList) {article ->
+                TopHeadline(article)
+            }
+        }
+    }
+
+    @Composable
+    fun TopHeadline(article: Article) {
+        Text(article.title)
+    }
+
+    @Preview
+    @Composable
+    fun PreviewTopHeadline() {
+        val source = Source(
+            id = "business-insider",
+            name = "Business Insider"
         )
-        recyclerView.adapter = adapter
+        val article = Article(
+            title = "This is a title",
+            source = source
+        )
+        AndroidMVVMSampleTheme {
+            Surface {
+                TopHeadline(article = article)
+            }
+        }
     }
 
     private fun setUpObserver() {
@@ -57,27 +82,18 @@ class TopHeadlineActivity: AppCompatActivity() {
                 topHeadlineViewModel.uiState.collect {
                     when(it) {
                         is UiState.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            renderList(it.data)
-                            binding.recyclerView.visibility = View.VISIBLE
+                            _topHeadlinesList.addAll(it.data)
                         }
                         is UiState.Loading -> {
-                            binding.progressBar.visibility = View.VISIBLE
-                            binding.recyclerView.visibility = View.GONE
+                            // Show progress bar
                         }
                         is UiState.Error -> {
                             // Handling error
-                            binding.progressBar.visibility = View.GONE
-                            Toast.makeText(this@TopHeadlineActivity, it.message, Toast.LENGTH_LONG).show()
                         }
                     }
                 }
             }
         }
-    }
-
-    private fun renderList(articlesList: List<Article>) {
-        adapter.addData(articlesList)
     }
 
     private fun injectDependencies() {
