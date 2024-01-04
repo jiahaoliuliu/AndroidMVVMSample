@@ -32,9 +32,14 @@ android {
     }
 
     buildFeatures {
-        viewBinding true
+        compose = true
     }
-    namespace 'me.amitshekhar.mvvm'
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
+
+    namespace 'com.jiahaoliuliu.AndroidMVVMSampleApplication'
 }
 
 dependencies {
