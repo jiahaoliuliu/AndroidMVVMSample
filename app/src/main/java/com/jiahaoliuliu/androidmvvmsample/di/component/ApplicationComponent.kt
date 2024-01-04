@@ -19,12 +19,5 @@ interface ApplicationComponent {
 
     fun inject(application: AndroidMVVMSampleApplication)
 
-    @ApplicationContext
-    fun getContext(): Context
-
-    fun getNetworkService(): NetworkService
-
-    fun getTopHeadlineRepository(): TopHeadlineRepository
-
     fun getRetrieveTopHeadlineUseCase(): RetrieveTopHeadlineUseCase
 }

@@ -14,8 +14,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 
 class TopHeadlineViewModel(
-    private val retrieveTopHeadlineUseCase: RetrieveTopHeadlineUseCase,
-    private val topHeadlineRepository: TopHeadlineRepository) : ViewModel() {
+    private val retrieveTopHeadlineUseCase: RetrieveTopHeadlineUseCase) : ViewModel() {
 
     private val _uiState = MutableStateFlow<UiState<List<Article>>>(UiState.Loading)
     val uiState: StateFlow<UiState<List<Article>>> = _uiState

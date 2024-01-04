@@ -38,10 +38,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
-import com.jiahaoliuliu.androidmvvmsample.data.model.ArticleRemoteData
-import com.jiahaoliuliu.androidmvvmsample.data.model.SourceRemoteData
 import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
-import com.jiahaoliuliu.androidmvvmsample.di.module.ActivityModule
+import com.jiahaoliuliu.androidmvvmsample.di.module.PresentationModule
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
@@ -199,6 +197,6 @@ class TopHeadlineActivity: AppCompatActivity() {
     private fun injectDependencies() {
         DaggerActivityComponent.builder()
             .applicationComponent((application as AndroidMVVMSampleApplication).applicationComponent)
-            .activityModule(ActivityModule(this)).build().inject(this)
+            .activityModule(PresentationModule(this)).build().inject(this)
     }
 }
