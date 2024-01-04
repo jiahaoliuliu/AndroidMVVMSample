@@ -7,11 +7,12 @@ import com.jiahaoliuliu.androidmvvmsample.data.repository.TopHeadlineRepository
 import com.jiahaoliuliu.androidmvvmsample.di.ApplicationContext
 import com.jiahaoliuliu.androidmvvmsample.di.module.ApplicationModule
 import com.jiahaoliuliu.androidmvvmsample.di.module.DataModule
+import com.jiahaoliuliu.androidmvvmsample.di.module.DomainModule
 import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [ApplicationModule::class, DataModule::class])
+@Component(modules = [ApplicationModule::class, DataModule::class, DomainModule::class])
 interface ApplicationComponent {
 
     fun inject(application: AndroidMVVMSampleApplication)
