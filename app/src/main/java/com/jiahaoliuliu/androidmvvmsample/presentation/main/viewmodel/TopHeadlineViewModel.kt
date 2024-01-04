@@ -1,10 +1,10 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.main.viewmodel
+package com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
 import com.jiahaoliuliu.androidmvvmsample.data.repository.TopHeadlineRepository
-import com.jiahaoliuliu.androidmvvmsample.ui.base.UiState
+import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
 import com.jiahaoliuliu.androidmvvmsample.utils.AppConstant.COUNTRY
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

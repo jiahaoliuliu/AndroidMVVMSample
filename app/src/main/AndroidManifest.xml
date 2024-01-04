@@ -16,7 +16,7 @@
         android:theme="@style/Theme.AndroidMVVMSample"
         tools:targetApi="31">
         <activity
-            android:name="com.jiahaoliuliu.androidmvvmsample.ui.main.view.TopHeadlineActivity"
+            android:name="com.jiahaoliuliu.androidmvvmsample.presentation.main.view.TopHeadlineActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.AndroidMVVMSample">

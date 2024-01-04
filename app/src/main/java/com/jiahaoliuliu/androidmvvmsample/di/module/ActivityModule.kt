@@ -5,9 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.jiahaoliuliu.androidmvvmsample.data.repository.TopHeadlineRepository
 import com.jiahaoliuliu.androidmvvmsample.di.ActivityContext
-import com.jiahaoliuliu.androidmvvmsample.ui.base.ViewModelProviderFactory
-import com.jiahaoliuliu.androidmvvmsample.ui.main.adapter.TopHeadlineAdapter
-import com.jiahaoliuliu.androidmvvmsample.ui.main.viewmodel.TopHeadlineViewModel
+import com.jiahaoliuliu.androidmvvmsample.presentation.base.ViewModelProviderFactory
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.adapter.TopHeadlineAdapter
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
 import dagger.Module
 import dagger.Provides
 

@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.main.view
+package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 
 import android.os.Bundle
 import android.view.View
@@ -12,11 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
 import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
-import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerApplicationComponent
 import com.jiahaoliuliu.androidmvvmsample.di.module.ActivityModule
-import com.jiahaoliuliu.androidmvvmsample.ui.base.UiState
-import com.jiahaoliuliu.androidmvvmsample.ui.main.adapter.TopHeadlineAdapter
-import com.jiahaoliuliu.androidmvvmsample.ui.main.viewmodel.TopHeadlineViewModel
+import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.adapter.TopHeadlineAdapter
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
 import kotlinx.coroutines.launch
 import me.amitshekhar.mvvm.databinding.ActivityTopHeadlineBinding
 import javax.inject.Inject

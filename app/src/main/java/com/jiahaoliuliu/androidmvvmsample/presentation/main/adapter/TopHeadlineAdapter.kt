@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.main.adapter
+package com.jiahaoliuliu.androidmvvmsample.presentation.main.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater

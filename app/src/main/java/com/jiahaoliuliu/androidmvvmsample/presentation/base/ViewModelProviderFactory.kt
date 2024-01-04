@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.ui.base
+package com.jiahaoliuliu.androidmvvmsample.presentation.base
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
