@@ -194,7 +194,7 @@ class TopHeadlineActivity: AppCompatActivity() {
                             _topHeadlinesList.addAll(it.data)
                         }
                         is UiState.Loading -> {
-                            // Show progress bar
+                            // Do nothing. It is showing by default
                         }
                         is UiState.Error -> {
                             // Handling error
