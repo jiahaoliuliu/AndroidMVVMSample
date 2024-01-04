@@ -1,5 +1,9 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.composable
 
+import android.content.Context
+import android.net.Uri
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -22,10 +26,15 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTh
 
 @Composable
 fun TopHeadline(article: Article) {
-
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .padding(all = 8.dp)
+            .clickable {
+                if (article.url.isNotEmpty()) {
+                    openArticleDetails(context, article.url)
+                }
+            }
     )
     {
         AsyncImage(
@@ -47,6 +56,12 @@ fun TopHeadline(article: Article) {
             style = MaterialTheme.typography.titleMedium,
         )
     }
+}
+
+private fun openArticleDetails(context: Context, url: String) {
+    val builder = CustomTabsIntent.Builder()
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(context, Uri.parse(url))
 }
 
 @Preview
