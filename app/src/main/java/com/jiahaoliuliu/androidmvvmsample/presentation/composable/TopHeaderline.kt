@@ -1,8 +1,5 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.composable
 
-import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.animateContentSize
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -11,10 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -29,12 +22,10 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTh
 
 @Composable
 fun TopHeadline(article: Article) {
-    var isExpanded by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
             .padding(all = 8.dp)
-            .clickable { isExpanded = !isExpanded }
     )
     {
         AsyncImage(
@@ -50,36 +41,11 @@ fun TopHeadline(article: Article) {
         )
 
         Spacer(modifier = Modifier.height(8.dp))
-        val surfaceColor by animateColorAsState(
-            if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-            label = "Background ",
-        )
-
         Text(
             text = article.title,
             color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.titleMedium,
         )
-        if (isExpanded) {
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Surface(
-                shadowElevation = 1.dp,
-                color = surfaceColor,
-                modifier = Modifier.animateContentSize().padding(1.dp)
-            ) {
-                Column {
-                    Text(
-                        article.description,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Text(
-                        article.source,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
-        }
     }
 }
 
