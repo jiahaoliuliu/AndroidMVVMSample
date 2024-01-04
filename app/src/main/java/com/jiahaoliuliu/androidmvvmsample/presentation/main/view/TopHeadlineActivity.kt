@@ -6,13 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
@@ -67,6 +70,13 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     @Composable
     fun TopHeadlinesList(articlesList: List<Article>) {
+        var isLoading by remember { mutableStateOf(true)}
+        isLoading = articlesList.isEmpty()
+
+        if (isLoading) {
+            IndeterminateCircularIndicator()
+        }
+
         LazyColumn {
             items(articlesList) {article ->
                 TopHeadline(article)
@@ -155,6 +165,23 @@ class TopHeadlineActivity: AppCompatActivity() {
             Surface {
                 TopHeadline(article = article)
             }
+        }
+    }
+
+    @Preview
+    @Composable
+    fun IndeterminateCircularIndicator() {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.width(64.dp),
+                color = MaterialTheme.colorScheme.secondary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant,
+                strokeWidth = 5.dp
+            )
         }
     }
 
