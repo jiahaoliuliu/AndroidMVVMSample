@@ -3,14 +3,25 @@ package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -65,8 +76,12 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     @Composable
     fun TopHeadline(article: Article) {
+        var isExpanded by remember { mutableStateOf(false)}
+
         Column(
-            modifier = Modifier.padding(all = 8.dp)
+            modifier = Modifier
+                .padding(all = 8.dp)
+                .clickable { isExpanded = !isExpanded }
         )
         {
             AsyncImage(
@@ -80,13 +95,42 @@ class TopHeadlineActivity: AppCompatActivity() {
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
             )
-            Text(article.title)
-            article.description?.let {
-                Text(article.description)
-            }
-            article.source?.let {source ->
-                source.name?.let {sourceName ->
-                    Text(sourceName)
+            
+            Spacer(modifier = Modifier.height(8.dp))
+            val surfaceColor by animateColorAsState(
+                if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
+                label = "Background ",
+            )
+
+            Text(
+                text = article.title,
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.titleMedium,
+                )
+            if (isExpanded) {
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Surface(
+                    shadowElevation = 1.dp,
+                    color = surfaceColor,
+                    modifier = Modifier.animateContentSize().padding(1.dp)
+                ) {
+                    Column {
+                        article.description?.let {
+                            Text(
+                                article.description,
+                                style = MaterialTheme.typography.bodyMedium,
+                            )
+                        }
+                        article.source?.let { source ->
+                            source.name?.let { sourceName ->
+                                Text(
+                                    sourceName,
+                                    style = MaterialTheme.typography.bodySmall
+                                    )
+                            }
+                        }
+                    }
                 }
             }
         }
