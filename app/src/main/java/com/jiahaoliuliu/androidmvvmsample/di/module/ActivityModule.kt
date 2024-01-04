@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.jiahaoliuliu.androidmvvmsample.data.repository.TopHeadlineRepository
 import com.jiahaoliuliu.androidmvvmsample.di.ActivityContext
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.ViewModelProviderFactory
-import com.jiahaoliuliu.androidmvvmsample.presentation.main.adapter.TopHeadlineAdapter
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
 import dagger.Module
 import dagger.Provides
@@ -26,7 +25,4 @@ class ActivityModule(private val activity: AppCompatActivity) {
             TopHeadlineViewModel(topHeadlineRepository)
         })[TopHeadlineViewModel::class.java]
     }
-
-    @Provides
-    fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
 }
