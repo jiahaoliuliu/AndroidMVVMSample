@@ -6,6 +6,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -44,8 +45,9 @@ fun TopHeadline(article: Article) {
                 .placeholder(R.drawable.image_place_holder)
                 .crossfade(true)
                 .build(),
+            modifier = Modifier.fillMaxSize(),
             contentDescription = article.title,
-            contentScale = ContentScale.Crop,
+            contentScale = ContentScale.FillWidth,
             alignment = Alignment.Center,
         )
 
