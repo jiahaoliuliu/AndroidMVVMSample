@@ -24,6 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
 import com.jiahaoliuliu.androidmvvmsample.data.model.Source
@@ -73,6 +74,8 @@ class TopHeadlineActivity: AppCompatActivity() {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(article.urlToImage)
+                    .error(R.drawable.image_place_holder)
+                    .placeholder(R.drawable.image_place_holder)
                     .crossfade(true)
                     .build(),
                 contentDescription = article.title,
