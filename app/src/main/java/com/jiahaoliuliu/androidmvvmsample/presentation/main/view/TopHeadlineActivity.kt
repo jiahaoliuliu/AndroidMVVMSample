@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -83,8 +81,14 @@ class TopHeadlineActivity: AppCompatActivity() {
                 alignment = Alignment.Center,
             )
             Text(article.title)
-            Text(article.description)
-            Text(article.source.name)
+            article.description?.let {
+                Text(article.description)
+            }
+            article.source?.let {source ->
+                source.name?.let {sourceName ->
+                    Text(sourceName)
+                }
+            }
         }
     }
 
