@@ -3,6 +3,7 @@ package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -13,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import coil.compose.AsyncImage
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
 import com.jiahaoliuliu.androidmvvmsample.data.model.Source
@@ -55,7 +57,13 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     @Composable
     fun TopHeadline(article: Article) {
-        Text(article.title)
+        Column {
+            AsyncImage(
+                model = article.urlToImage,
+                contentDescription = article.title,
+            )
+            Text(article.title)
+        }
     }
 
     @Preview
