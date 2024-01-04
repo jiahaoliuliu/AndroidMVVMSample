@@ -34,14 +34,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
-import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
+import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerPresentationComponent
 import com.jiahaoliuliu.androidmvvmsample.di.module.PresentationModule
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
+import com.jiahaoliuliu.androidmvvmsample.presentation.composable.IndeterminateCircularIndicator
+import com.jiahaoliuliu.androidmvvmsample.presentation.composable.TopHeadline
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
 import kotlinx.coroutines.launch
@@ -83,97 +82,6 @@ class TopHeadlineActivity: AppCompatActivity() {
         }
     }
 
-    @Composable
-    fun TopHeadline(article: Article) {
-        var isExpanded by remember { mutableStateOf(false)}
-
-        Column(
-            modifier = Modifier
-                .padding(all = 8.dp)
-                .clickable { isExpanded = !isExpanded }
-        )
-        {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(article.imageUrl)
-                    .error(R.drawable.image_place_holder)
-                    .placeholder(R.drawable.image_place_holder)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = article.title,
-                contentScale = ContentScale.Crop,
-                alignment = Alignment.Center,
-            )
-            
-            Spacer(modifier = Modifier.height(8.dp))
-            val surfaceColor by animateColorAsState(
-                if (isExpanded) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surface,
-                label = "Background ",
-            )
-
-            Text(
-                text = article.title,
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.titleMedium,
-                )
-            if (isExpanded) {
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Surface(
-                    shadowElevation = 1.dp,
-                    color = surfaceColor,
-                    modifier = Modifier.animateContentSize().padding(1.dp)
-                ) {
-                    Column {
-                            Text(
-                                article.description,
-                                style = MaterialTheme.typography.bodyMedium,
-                            )
-                        }
-                        Text(
-                            article.source,
-                            style = MaterialTheme.typography.bodySmall
-                            )
-                    }
-                }
-            }
-        }
-
-    @Preview
-    @Composable
-    fun PreviewTopHeadline() {
-        val article = Article(
-            title = "Apple jobs: Career opportunities are available for employees from 'all walks of life'",
-            description = "There are diverse career opportunities at Apple. Find out how you can get a job and get hired as part of Apple's work environment.",
-            url = "https://www.businessinsider.com/apple-jobs-careers-hiring-opportunities",
-            imageUrl = "https://i.insider.com/65943f1fec62ab5daf7ff600?width=1200&format=jpeg",
-            source = "Business insider"
-        )
-
-        AndroidMVVMSampleTheme {
-            Surface {
-                TopHeadline(article = article)
-            }
-        }
-    }
-
-    @Preview
-    @Composable
-    fun IndeterminateCircularIndicator() {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.width(64.dp),
-                color = MaterialTheme.colorScheme.secondary,
-                trackColor = MaterialTheme.colorScheme.surfaceVariant,
-                strokeWidth = 5.dp
-            )
-        }
-    }
-
     private fun setUpObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -195,8 +103,8 @@ class TopHeadlineActivity: AppCompatActivity() {
     }
 
     private fun injectDependencies() {
-        DaggerActivityComponent.builder()
+        DaggerPresentationComponent.builder()
             .applicationComponent((application as AndroidMVVMSampleApplication).applicationComponent)
-            .activityModule(PresentationModule(this)).build().inject(this)
+            .presentationModule(PresentationModule(this)).build().inject(this)
     }
 }
