@@ -83,6 +83,8 @@ class TopHeadlineActivity: AppCompatActivity() {
                 alignment = Alignment.Center,
             )
             Text(article.title)
+            Text(article.description)
+            Text(article.source.name)
         }
     }
 
