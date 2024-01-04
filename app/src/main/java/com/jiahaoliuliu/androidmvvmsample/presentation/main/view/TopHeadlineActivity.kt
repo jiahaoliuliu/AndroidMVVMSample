@@ -4,17 +4,26 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.compose.AsyncImage
+import coil.request.ImageRequest
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
 import com.jiahaoliuliu.androidmvvmsample.data.model.Article
 import com.jiahaoliuliu.androidmvvmsample.data.model.Source
@@ -57,10 +66,18 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     @Composable
     fun TopHeadline(article: Article) {
-        Column {
+        Column(
+            modifier = Modifier.padding(all = 8.dp)
+        )
+        {
             AsyncImage(
-                model = article.urlToImage,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(article.urlToImage)
+                    .crossfade(true)
+                    .build(),
                 contentDescription = article.title,
+                contentScale = ContentScale.Crop,
+                alignment = Alignment.Center,
             )
             Text(article.title)
         }
