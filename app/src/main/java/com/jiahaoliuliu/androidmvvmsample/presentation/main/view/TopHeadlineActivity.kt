@@ -66,9 +66,13 @@ class TopHeadlineActivity: AppCompatActivity() {
             name = "Business Insider"
         )
         val article = Article(
-            title = "This is a title",
+            title = "Apple jobs: Career opportunities are available for employees from 'all walks of life'",
+            description = "There are diverse career opportunities at Apple. Find out how you can get a job and get hired as part of Apple's work environment.",
+            url = "https://www.businessinsider.com/apple-jobs-careers-hiring-opportunities",
+            urlToImage = "https://i.insider.com/65943f1fec62ab5daf7ff600?width=1200&format=jpeg",
             source = source
         )
+
         AndroidMVVMSampleTheme {
             Surface {
                 TopHeadline(article = article)
