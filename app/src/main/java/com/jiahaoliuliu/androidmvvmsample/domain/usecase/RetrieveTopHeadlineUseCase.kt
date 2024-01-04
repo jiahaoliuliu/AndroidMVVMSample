@@ -5,10 +5,9 @@ import com.jiahaoliuliu.androidmvvmsample.data.repository.TopHeadlineRepository
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Inject
 
 interface RetrieveTopHeadlineUseCase {
-    suspend fun invoke(country: String): Flow<List<Article>>
+    suspend operator fun invoke(country: String): Flow<List<Article>>
 }
 
 class RetrieveTopHeadlineUseCaseImpl (

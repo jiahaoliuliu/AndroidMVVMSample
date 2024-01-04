@@ -10,7 +10,7 @@ class TopHeadlineMapper @Inject constructor(){
             title = articleRemoteData.title,
             description = articleRemoteData.description ?: "",
             url = articleRemoteData.url,
-            imageUrl = articleRemoteData.urlToImage,
+            imageUrl = articleRemoteData.urlToImage ?: "",
             source = articleRemoteData.source?.name ?: ""
         )
     }
