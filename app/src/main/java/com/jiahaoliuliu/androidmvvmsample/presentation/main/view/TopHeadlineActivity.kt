@@ -38,8 +38,8 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
-import com.jiahaoliuliu.androidmvvmsample.data.model.Article
-import com.jiahaoliuliu.androidmvvmsample.data.model.Source
+import com.jiahaoliuliu.androidmvvmsample.data.model.ArticleRemoteData
+import com.jiahaoliuliu.androidmvvmsample.data.model.SourceRemoteData
 import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerActivityComponent
 import com.jiahaoliuliu.androidmvvmsample.di.module.ActivityModule
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
@@ -52,8 +52,8 @@ class TopHeadlineActivity: AppCompatActivity() {
 
     @Inject
     lateinit var topHeadlineViewModel: TopHeadlineViewModel
-    private val _topHeadlinesList = mutableStateListOf<Article>()
-    private val topHeadlinesList: List<Article> = _topHeadlinesList
+    private val _topHeadlinesList = mutableStateListOf<ArticleRemoteData>()
+    private val topHeadlinesList: List<ArticleRemoteData> = _topHeadlinesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         injectDependencies()
@@ -69,7 +69,7 @@ class TopHeadlineActivity: AppCompatActivity() {
     }
 
     @Composable
-    fun TopHeadlinesList(articlesList: List<Article>) {
+    fun TopHeadlinesList(articlesList: List<ArticleRemoteData>) {
         var isLoading by remember { mutableStateOf(true)}
         isLoading = articlesList.isEmpty()
 
@@ -85,7 +85,7 @@ class TopHeadlineActivity: AppCompatActivity() {
     }
 
     @Composable
-    fun TopHeadline(article: Article) {
+    fun TopHeadline(articleRemoteData: ArticleRemoteData) {
         var isExpanded by remember { mutableStateOf(false)}
 
         Column(
@@ -96,12 +96,12 @@ class TopHeadlineActivity: AppCompatActivity() {
         {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(article.urlToImage)
+                    .data(articleRemoteData.urlToImage)
                     .error(R.drawable.image_place_holder)
                     .placeholder(R.drawable.image_place_holder)
                     .crossfade(true)
                     .build(),
-                contentDescription = article.title,
+                contentDescription = articleRemoteData.title,
                 contentScale = ContentScale.Crop,
                 alignment = Alignment.Center,
             )
@@ -113,7 +113,7 @@ class TopHeadlineActivity: AppCompatActivity() {
             )
 
             Text(
-                text = article.title,
+                text = articleRemoteData.title,
                 color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleMedium,
                 )
@@ -126,13 +126,13 @@ class TopHeadlineActivity: AppCompatActivity() {
                     modifier = Modifier.animateContentSize().padding(1.dp)
                 ) {
                     Column {
-                        article.description?.let {
+                        articleRemoteData.description?.let {
                             Text(
-                                article.description,
+                                articleRemoteData.description,
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                         }
-                        article.source?.let { source ->
+                        articleRemoteData.source?.let { source ->
                             source.name?.let { sourceName ->
                                 Text(
                                     sourceName,
@@ -149,21 +149,21 @@ class TopHeadlineActivity: AppCompatActivity() {
     @Preview
     @Composable
     fun PreviewTopHeadline() {
-        val source = Source(
+        val sourceRemoteData = SourceRemoteData(
             id = "business-insider",
             name = "Business Insider"
         )
-        val article = Article(
+        val articleRemoteData = ArticleRemoteData(
             title = "Apple jobs: Career opportunities are available for employees from 'all walks of life'",
             description = "There are diverse career opportunities at Apple. Find out how you can get a job and get hired as part of Apple's work environment.",
             url = "https://www.businessinsider.com/apple-jobs-careers-hiring-opportunities",
             urlToImage = "https://i.insider.com/65943f1fec62ab5daf7ff600?width=1200&format=jpeg",
-            source = source
+            source = sourceRemoteData
         )
 
         AndroidMVVMSampleTheme {
             Surface {
-                TopHeadline(article = article)
+                TopHeadline(articleRemoteData = articleRemoteData)
             }
         }
     }
