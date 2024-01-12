@@ -6,8 +6,11 @@ import com.jiahaoliuliu.androidmvvmsample.domain.usecase.RetrieveTopHeadlineUseC
 import com.jiahaoliuliu.androidmvvmsample.domain.usecase.RetrieveTopHeadlineUseCaseImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 @Module
+@InstallIn(SingletonComponent::class)
 class DomainModule {
     @Provides
     fun provideRetrieveTopHeadlineUseCase(
