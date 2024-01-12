@@ -2,6 +2,7 @@ package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,13 +24,11 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlin
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TopHeadlineActivity: AppCompatActivity() {
 
-    @Inject
-    lateinit var topHeadlineViewModel: TopHeadlineViewModel
+    private val topHeadlineViewModel: TopHeadlineViewModel by viewModels()
     private val _topHeadlinesList = mutableStateListOf<Article>()
     private val topHeadlinesList: List<Article> = _topHeadlinesList
 
