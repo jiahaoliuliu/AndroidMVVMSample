@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.ErrorView
@@ -13,7 +14,7 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.Indetermi
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.TopHeadline
 
 @Composable
-fun TopHeadlinesListScreen(vm: TopHeadlineViewModel = hiltViewModel()) {
+fun TopHeadlinesListScreen(navController: NavController, vm: TopHeadlineViewModel = hiltViewModel()) {
     val state by vm.uiState.collectAsState()
 
     when (state) {
@@ -23,15 +24,17 @@ fun TopHeadlinesListScreen(vm: TopHeadlineViewModel = hiltViewModel()) {
             ErrorView(errorMessage = (state as UiState.Error).message, onClick = vm::retry)
         }
         // Handling the error
-        is UiState.Success -> Results(articlesList = (state as UiState.Success).data)
+        is UiState.Success -> Results(articlesList = (state as UiState.Success).data) {
+            navController.navigate("details/$it")
+        }
     }
 }
 
 @Composable
-fun Results(articlesList: List<Article>) {
+fun Results(articlesList: List<Article>, onClick: (String) -> Unit) {
     LazyColumn {
         items(articlesList) { article ->
-            TopHeadline(article)
+            TopHeadline(article, onClick)
         }
     }
 }
