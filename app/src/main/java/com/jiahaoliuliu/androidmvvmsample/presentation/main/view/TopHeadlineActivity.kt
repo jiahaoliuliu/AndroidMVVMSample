@@ -33,7 +33,6 @@ class TopHeadlineActivity: AppCompatActivity() {
     private val topHeadlinesList: List<Article> = _topHeadlinesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        injectDependencies()
         super.onCreate(savedInstanceState)
         setContent {
             AndroidMVVMSampleTheme {
@@ -80,10 +79,4 @@ class TopHeadlineActivity: AppCompatActivity() {
             }
         }
     }
-
-//    private fun injectDependencies() {
-//        DaggerPresentationComponent.builder()
-//            .applicationComponent((application as AndroidMVVMSampleApplication).applicationComponent)
-//            .presentationModule(PresentationModule(this)).build().inject(this)
-//    }
 }
