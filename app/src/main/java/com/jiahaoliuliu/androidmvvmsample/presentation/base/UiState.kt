@@ -1,7 +1,9 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.base
 
-sealed interface UiState<out T> {
-    data class Success<T>(val data: T): UiState<T>
-    data class Error(val message: String): UiState<Nothing>
-    object Loading: UiState<Nothing>
+import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
+
+sealed interface UiState {
+    data class Success(val data: List<Article>): UiState
+    data class Error(val message: String): UiState
+    object Loading: UiState
 }

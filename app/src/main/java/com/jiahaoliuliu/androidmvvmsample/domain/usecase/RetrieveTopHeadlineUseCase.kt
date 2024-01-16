@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface RetrieveTopHeadlineUseCase {
-    suspend operator fun invoke(country: String): Flow<List<Article>>
+    operator fun invoke(country: String): Flow<List<Article>>
 }
 
 class RetrieveTopHeadlineUseCaseImpl @Inject constructor(
@@ -16,7 +16,7 @@ class RetrieveTopHeadlineUseCaseImpl @Inject constructor(
     private val topHeadlineMapper: TopHeadlineMapper
     ): RetrieveTopHeadlineUseCase {
 
-    override suspend fun invoke(country: String): Flow<List<Article>> {
+    override fun invoke(country: String): Flow<List<Article>> {
         return topHeadlineRepository.getTopHeadlines(country)
             .map { it.map {
                 articleRemoteData ->  topHeadlineMapper.invoke(articleRemoteData)
