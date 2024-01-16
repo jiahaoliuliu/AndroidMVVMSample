@@ -1,8 +1,5 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.main.composable
 
-import android.content.Context
-import android.net.Uri
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,16 +21,18 @@ import coil.request.ImageRequest
 import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 @Composable
-fun TopHeadline(article: Article) {
-    val context = LocalContext.current
+fun TopHeadline(article: Article, onClick: (String, String) -> Unit) {
     Column(
         modifier = Modifier
             .padding(all = 8.dp)
             .clickable {
                 if (article.url.isNotEmpty()) {
-                    openArticleDetails(context, article.url)
+                    val urlEncoded = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString())
+                    onClick(urlEncoded, article.title)
                 }
             }
     )
@@ -60,12 +59,6 @@ fun TopHeadline(article: Article) {
     }
 }
 
-private fun openArticleDetails(context: Context, url: String) {
-    val builder = CustomTabsIntent.Builder()
-    val customTabsIntent = builder.build()
-    customTabsIntent.launchUrl(context, Uri.parse(url))
-}
-
 @Preview
 @Composable
 fun PreviewTopHeadline() {
@@ -79,7 +72,7 @@ fun PreviewTopHeadline() {
 
     AndroidMVVMSampleTheme {
         Surface {
-            TopHeadline(article = article)
+            TopHeadline(article = article, onClick = {_, _ -> })
         }
     }
 }
