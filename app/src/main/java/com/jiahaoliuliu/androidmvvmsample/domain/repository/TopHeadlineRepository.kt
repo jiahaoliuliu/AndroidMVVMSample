@@ -4,5 +4,5 @@ import com.jiahaoliuliu.androidmvvmsample.data.model.ArticleRemoteData
 import kotlinx.coroutines.flow.Flow
 
 interface TopHeadlineRepository {
-    fun getTopHeadlines(country: String): Flow<List<ArticleRemoteData>>
+    suspend fun getTopHeadlines(country: String): Flow<List<ArticleRemoteData>>
 }
