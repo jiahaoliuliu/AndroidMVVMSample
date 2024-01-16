@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.presentation.composable
+package com.jiahaoliuliu.androidmvvmsample.presentation.main.composable
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

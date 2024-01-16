@@ -8,8 +8,8 @@ import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
-import com.jiahaoliuliu.androidmvvmsample.presentation.composable.IndeterminateCircularIndicator
-import com.jiahaoliuliu.androidmvvmsample.presentation.composable.TopHeadline
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.IndeterminateCircularIndicator
+import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.TopHeadline
 
 @Composable
 fun TopHeadlinesListScreen(vm: TopHeadlineViewModel = hiltViewModel()) {
@@ -19,7 +19,7 @@ fun TopHeadlinesListScreen(vm: TopHeadlineViewModel = hiltViewModel()) {
         is UiState.Loading ->
             IndeterminateCircularIndicator()
         is UiState.Error -> {
-            
+
         }
         // Handling the error
         is UiState.Success -> Results(articlesList = (state as UiState.Success).data)
@@ -34,3 +34,4 @@ fun Results(articlesList: List<Article>) {
         }
     }
 }
+

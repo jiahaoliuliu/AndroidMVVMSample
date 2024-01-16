@@ -1,4 +1,4 @@
-package com.jiahaoliuliu.androidmvvmsample.presentation.composable
+package com.jiahaoliuliu.androidmvvmsample.presentation.main.composable
 
 import android.content.Context
 import android.net.Uri
