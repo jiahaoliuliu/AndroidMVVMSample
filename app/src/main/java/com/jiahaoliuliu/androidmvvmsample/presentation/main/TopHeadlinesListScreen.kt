@@ -18,7 +18,9 @@ fun TopHeadlinesListScreen(vm: TopHeadlineViewModel = hiltViewModel()) {
     when (state) {
         is UiState.Loading ->
             IndeterminateCircularIndicator()
-        is UiState.Error -> {}
+        is UiState.Error -> {
+            
+        }
         // Handling the error
         is UiState.Success -> Results(articlesList = (state as UiState.Success).data)
     }

@@ -9,7 +9,6 @@ import com.jiahaoliuliu.androidmvvmsample.utils.AppConstant.COUNTRY
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,11 +27,12 @@ class TopHeadlineViewModel @Inject constructor(
     private fun fetchTopHeadlines() {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
-                .catch { e ->
-                    _uiState.value = UiState.Error(e.toString())
+                .onSuccess {
+                    articlesList ->
+                        _uiState.value = UiState.Success(articlesList)
                 }
-                .collect {
-                    _uiState.value = UiState.Success(it)
+                .onFailure {
+                    _uiState.value = UiState.Error(it.toString())
                 }
         }
     }
