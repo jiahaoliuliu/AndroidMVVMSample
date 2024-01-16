@@ -7,10 +7,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class TopHeadlineRepositoryImpl @Inject constructor(private val networkService: NetworkService): TopHeadlineRepository {
-    override fun getTopHeadlines(country: String): Flow<List<ArticleRemoteData>> {
+    override suspend fun getTopHeadlines(country: String): Flow<List<ArticleRemoteData>> {
         return flow {
             emit(networkService.getTopHeadlines(country))
         }.map {
