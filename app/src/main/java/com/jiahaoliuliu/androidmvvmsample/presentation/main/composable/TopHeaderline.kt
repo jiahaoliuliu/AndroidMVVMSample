@@ -25,14 +25,14 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
-fun TopHeadline(article: Article, onClick: (String) -> Unit) {
+fun TopHeadline(article: Article, onClick: (String, String) -> Unit) {
     Column(
         modifier = Modifier
             .padding(all = 8.dp)
             .clickable {
                 if (article.url.isNotEmpty()) {
                     val urlEncoded = URLEncoder.encode(article.url, StandardCharsets.UTF_8.toString())
-                    onClick(urlEncoded)
+                    onClick(urlEncoded, article.title)
                 }
             }
     )
@@ -72,7 +72,7 @@ fun PreviewTopHeadline() {
 
     AndroidMVVMSampleTheme {
         Surface {
-            TopHeadline(article = article, onClick = {})
+            TopHeadline(article = article, onClick = {_, _ -> })
         }
     }
 }

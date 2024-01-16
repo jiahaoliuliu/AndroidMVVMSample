@@ -24,14 +24,14 @@ fun TopHeadlinesListScreen(navController: NavController, vm: TopHeadlineViewMode
             ErrorView(errorMessage = (state as UiState.Error).message, onClick = vm::retry)
         }
         // Handling the error
-        is UiState.Success -> Results(articlesList = (state as UiState.Success).data) {
-            navController.navigate("details/$it")
+        is UiState.Success -> Results(articlesList = (state as UiState.Success).data) {url, title ->
+            navController.navigate("details/$url/$title")
         }
     }
 }
 
 @Composable
-fun Results(articlesList: List<Article>, onClick: (String) -> Unit) {
+fun Results(articlesList: List<Article>, onClick: (String, String) -> Unit) {
     LazyColumn {
         items(articlesList) { article ->
             TopHeadline(article, onClick)

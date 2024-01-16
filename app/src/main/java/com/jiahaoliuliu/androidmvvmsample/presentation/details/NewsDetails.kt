@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import java.net.URLDecoder
@@ -21,12 +22,16 @@ import java.nio.charset.StandardCharsets
 
 @ExperimentalMaterial3Api
 @Composable
-fun NewsDetails (modifier: Modifier = Modifier.fillMaxSize(), url: String, navController: NavController) {
+fun NewsDetails (
+    modifier: Modifier = Modifier.fillMaxSize(),
+    url: String,
+    title: String,
+    navController: NavController) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Details")
+                    Text(title, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 },
             navigationIcon = {
                     IconButton(onClick = {

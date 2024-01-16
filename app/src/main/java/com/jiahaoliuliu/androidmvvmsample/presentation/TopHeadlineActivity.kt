@@ -27,8 +27,9 @@ class TopHeadlineActivity: AppCompatActivity() {
                         composable("list") {
                             TopHeadlinesListScreen(navController)
                         }
-                        composable("details/{url}") {backStackEntry ->
+                        composable("details/{url}/{title}") {backStackEntry ->
                             NewsDetails(url = backStackEntry.arguments?.getString("url") ?: "",
+                                title = backStackEntry.arguments?.getString("title") ?: "",
                                 navController = navController)
                         }
                     }
