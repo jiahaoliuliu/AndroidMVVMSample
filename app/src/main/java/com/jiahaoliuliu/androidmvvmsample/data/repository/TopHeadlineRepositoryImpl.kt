@@ -8,5 +8,8 @@ import javax.inject.Inject
 class TopHeadlineRepositoryImpl @Inject constructor(private val networkService: NetworkService): TopHeadlineRepository {
     override suspend fun getTopHeadlines(country: String): List<ArticleRemoteData> {
         return networkService.getTopHeadlines(country).articles
+            .filter {
+                it.title != "[Removed]"
+            }
     }
 }
