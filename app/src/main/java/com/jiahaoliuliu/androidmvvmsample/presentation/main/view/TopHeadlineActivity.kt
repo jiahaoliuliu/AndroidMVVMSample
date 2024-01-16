@@ -2,6 +2,7 @@ package com.jiahaoliuliu.androidmvvmsample.presentation.main.view
 
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -15,27 +16,23 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.jiahaoliuliu.androidmvvmsample.AndroidMVVMSampleApplication
-import com.jiahaoliuliu.androidmvvmsample.di.component.DaggerPresentationComponent
-import com.jiahaoliuliu.androidmvvmsample.di.module.PresentationModule
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
 import com.jiahaoliuliu.androidmvvmsample.presentation.composable.IndeterminateCircularIndicator
 import com.jiahaoliuliu.androidmvvmsample.presentation.composable.TopHeadline
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.viewmodel.TopHeadlineViewModel
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class TopHeadlineActivity: AppCompatActivity() {
 
-    @Inject
-    lateinit var topHeadlineViewModel: TopHeadlineViewModel
+    private val topHeadlineViewModel: TopHeadlineViewModel by viewModels()
     private val _topHeadlinesList = mutableStateListOf<Article>()
     private val topHeadlinesList: List<Article> = _topHeadlinesList
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        injectDependencies()
         super.onCreate(savedInstanceState)
         setContent {
             AndroidMVVMSampleTheme {
@@ -81,11 +78,5 @@ class TopHeadlineActivity: AppCompatActivity() {
                 }
             }
         }
-    }
-
-    private fun injectDependencies() {
-        DaggerPresentationComponent.builder()
-            .applicationComponent((application as AndroidMVVMSampleApplication).applicationComponent)
-            .presentationModule(PresentationModule(this)).build().inject(this)
     }
 }
