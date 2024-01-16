@@ -3,6 +3,7 @@ package com.jiahaoliuliu.androidmvvmsample.presentation
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -12,6 +13,7 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.main.TopHeadlinesListScre
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalMaterial3Api
 @AndroidEntryPoint
 class TopHeadlineActivity: AppCompatActivity() {
 
@@ -26,7 +28,8 @@ class TopHeadlineActivity: AppCompatActivity() {
                             TopHeadlinesListScreen(navController)
                         }
                         composable("details/{url}") {backStackEntry ->
-                            NewsDetails(url = backStackEntry.arguments?.getString("url") ?: "")
+                            NewsDetails(url = backStackEntry.arguments?.getString("url") ?: "",
+                                navController = navController)
                         }
                     }
                 }
