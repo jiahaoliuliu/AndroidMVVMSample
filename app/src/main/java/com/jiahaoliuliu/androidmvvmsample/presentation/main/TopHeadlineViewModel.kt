@@ -24,6 +24,10 @@ class TopHeadlineViewModel @Inject constructor(
         fetchTopHeadlines()
     }
 
+    fun retry() {
+        fetchTopHeadlines()
+    }
+
     private fun fetchTopHeadlines() {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
