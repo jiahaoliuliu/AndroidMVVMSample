@@ -28,6 +28,11 @@ class TopHeadlineViewModel @Inject constructor(
         _uiState.value = UiState.Loading
         fetchTopHeadlines()
     }
+
+    fun sortArticlesByName() {
+
+    }
+
     private fun fetchTopHeadlines() {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
