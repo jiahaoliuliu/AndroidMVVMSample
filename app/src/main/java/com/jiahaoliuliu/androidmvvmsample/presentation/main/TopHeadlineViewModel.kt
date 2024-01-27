@@ -25,9 +25,9 @@ class TopHeadlineViewModel @Inject constructor(
     }
 
     fun retry() {
+        _uiState.value = UiState.Loading
         fetchTopHeadlines()
     }
-
     private fun fetchTopHeadlines() {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
