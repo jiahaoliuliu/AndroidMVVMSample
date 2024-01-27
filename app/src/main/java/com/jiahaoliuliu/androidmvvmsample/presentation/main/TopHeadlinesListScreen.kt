@@ -1,19 +1,29 @@
 package com.jiahaoliuliu.androidmvvmsample.presentation.main
 
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.jiahaoliuliu.AndroidMVVMSampleApplication.R
 import com.jiahaoliuliu.androidmvvmsample.domain.entity.Article
 import com.jiahaoliuliu.androidmvvmsample.presentation.base.UiState
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.ErrorView
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.IndeterminateCircularIndicator
 import com.jiahaoliuliu.androidmvvmsample.presentation.main.composable.TopHeadline
 
+@ExperimentalMaterial3Api
 @Composable
 fun TopHeadlinesListScreen(navController: NavController, vm: TopHeadlineViewModel = hiltViewModel()) {
     val state by vm.uiState.collectAsState()
@@ -31,15 +41,27 @@ fun TopHeadlinesListScreen(navController: NavController, vm: TopHeadlineViewMode
     }
 }
 
+@ExperimentalMaterial3Api
 @Composable
 fun Results(articlesList: List<Article>, onClick: (String, String) -> Unit) {
-    LazyColumn {
-        items(articlesList) { article ->
-            TopHeadline(article, onClick)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text= stringResource(id = R.string.app_name), maxLines = 1, overflow = TextOverflow.Ellipsis)
+                },
+            )
+        },
+    ) {paddingValues ->
+        LazyColumn (modifier = Modifier.padding(paddingValues)){
+            items(articlesList) { article ->
+                TopHeadline(article, onClick)
+            }
         }
     }
 }
 
+@ExperimentalMaterial3Api
 @Preview
 @Composable
 fun ListScreenReview() {
