@@ -29,20 +29,29 @@ class TopHeadlineViewModel @Inject constructor(
         fetchTopHeadlines()
     }
 
-    fun sortArticlesByName() {
-
+    fun fetchArticlesAndSortByName() {
+        fetchTopHeadlines(sortArticlesByName = true)
     }
 
-    private fun fetchTopHeadlines() {
+    private fun fetchTopHeadlines(sortArticlesByName: Boolean = false) {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
                 .onSuccess {
                     articlesList ->
-                        _uiState.value = UiState.Success(articlesList)
+                        if (sortArticlesByName) {
+                            val articlesSorted = sortArticles(articlesList)
+                            _uiState.value = UiState.Success(articlesSorted)
+                        } else {
+                            _uiState.value = UiState.Success(articlesList)
+                        }
                 }
                 .onFailure {
                     _uiState.value = UiState.Error(it.toString())
                 }
         }
+    }
+
+    private fun sortArticles(articlesList: List<Article>): List<Article> {
+        return articlesList
     }
 }
