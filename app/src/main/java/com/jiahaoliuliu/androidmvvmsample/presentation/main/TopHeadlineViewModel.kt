@@ -28,12 +28,21 @@ class TopHeadlineViewModel @Inject constructor(
         fetchTopHeadlines()
     }
 
-    private fun fetchTopHeadlines() {
+    fun fetchArticlesAndSortByTitle() {
+        fetchTopHeadlines(sortArticlesByTitle = true)
+    }
+
+    private fun fetchTopHeadlines(sortArticlesByTitle: Boolean = false) {
         viewModelScope.launch {
             retrieveTopHeadlineUseCase(COUNTRY)
                 .onSuccess {
                     articlesList ->
-                        _uiState.value = UiState.Success(articlesList)
+                        _uiState.value = UiState.Success(
+                            if (sortArticlesByTitle)
+                                articlesList.sortedBy { it.title }
+                            else
+                                articlesList
+                        )
                 }
                 .onFailure {
                     _uiState.value = UiState.Error(it.toString())
