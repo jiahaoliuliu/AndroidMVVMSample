@@ -25,7 +25,6 @@ class TopHeadlineViewModel @Inject constructor(
     }
 
     fun retry() {
-        _uiState.value = UiState.Loading
         fetchTopHeadlines()
     }
 
