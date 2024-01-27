@@ -56,7 +56,7 @@ fun Results(articlesList: List<Article>, viewModel: TopHeadlineViewModel, onClic
                 },
                 actions = {
                     IconButton(onClick = {
-                        viewModel.fetchArticlesAndSortByName()
+                        viewModel.fetchArticlesAndSortByTitle()
                     }) {
                         Icon(
                             painterResource(id = R.drawable.ic_sort),
