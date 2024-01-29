@@ -38,10 +38,11 @@ class TopHeadlineViewModel @Inject constructor(
                 .onSuccess {
                     articlesList ->
                         _uiState.value = UiState.Success(
-                            if (sortArticlesByTitle)
-                                articlesList.sortedBy { it.title }
-                            else
+                            if (sortArticlesByTitle) {
+                                articlesList.sortByTitle()
+                            } else {
                                 articlesList
+                            }
                         )
                 }
                 .onFailure {
