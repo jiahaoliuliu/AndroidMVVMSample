@@ -39,7 +39,7 @@ class TopHeadlineViewModel @Inject constructor(
                     articlesList ->
                         _uiState.value = UiState.Success(
                             if (sortArticlesByTitle) {
-                                articlesList.sortByTitle()
+                                articlesList.bubbleSort()
                             } else {
                                 articlesList
                             }

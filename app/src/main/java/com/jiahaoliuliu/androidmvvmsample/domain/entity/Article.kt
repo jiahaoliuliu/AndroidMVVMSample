@@ -6,4 +6,8 @@ class Article (
     val url: String,
     val imageUrl: String,
     val source: String
-)
+) :Comparable<Article>  {
+    override fun compareTo(other: Article): Int {
+        return this.title compareTo other.title
+    }
+}
