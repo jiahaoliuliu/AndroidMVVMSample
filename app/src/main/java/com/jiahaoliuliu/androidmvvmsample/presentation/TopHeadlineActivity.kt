@@ -3,6 +3,7 @@ package com.jiahaoliuliu.androidmvvmsample.presentation
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Surface
 import androidx.navigation.compose.NavHost
@@ -13,10 +14,10 @@ import com.jiahaoliuliu.androidmvvmsample.presentation.main.TopHeadlinesListScre
 import com.jiahaoliuliu.androidmvvmsample.presentation.theme.AndroidMVVMSampleTheme
 import dagger.hilt.android.AndroidEntryPoint
 
+@ExperimentalMaterialApi
 @ExperimentalMaterial3Api
 @AndroidEntryPoint
 class TopHeadlineActivity: AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
